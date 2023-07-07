@@ -4,12 +4,20 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start:dev": "",
-    "start": "",
-    "server": "",
-    "build": "",
-    "install": "",
-    "client": ""
+    "start:dev": "concurrently \"cd client && npm run build\" \"cd server && npm run server\" ",
+    "start": "npm run build && cd server && node server.js",
+    "server": "cd server server.js --ignore client",
+    "build": "cd client && npm run build",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "client": "cd client && npm start"
+  },
+  "scriptComments": {
+    "comment-start:dev": "Concurrently runs the npm run build from the client folder, and the npm run server from the server folder",
+    "comment-start": "Bunldes the files with webpack, and opens the server",
+    "comment-server": "Opens the server only, does nothing for client",
+    "comment-build": "Only builds the webpack bundle, does not open the server",
+    "comment-install": "Installs dependencies for both server and client sides",
+    "comment-client": "Starts the client side building, and allows hot reloading as changes happen"
   },
   "keywords": [],
   "author": "",
