@@ -13,7 +13,7 @@ const initdb = async () =>
   });
 
 // Logic for a method that accepts some content and adds it to the database
-export const postDb = async (content) => {
+export const putDb = async (content) => {
   console.log('POST to the database'); // Used to verify connection
   const jateDb = await openDB('jate', 1); // Opening link to 'jate' db version '1'
   const tx = jateDb.transaction('jate', 'readwrite'); // Config type of 'transaction' allowed
@@ -34,11 +34,5 @@ export const getDb = async () => {
   console.log('result.value', result);
   return result;
 }
-
-// TODO: Will I need a putDb? Or do I just need a postDb according to accept. crit.?
-// export const putDb = async (content) => {
-  
-//   // console.error('putDb not implemented'); // From source code, will delete when logic is added
-// }
 
 initdb();
