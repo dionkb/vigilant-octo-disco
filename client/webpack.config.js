@@ -36,8 +36,8 @@ module.exports = () => {
         "description": "A text editor that works offline and can be downloaded",
       }),
       new InjectManifest({
-        swSrc: './src-sw.js', // TODO: Check if this this the correct route
-        swDest: 'sw.js', // TODO: Check if this destination route works
+        swSrc: './src-sw.js',
+        swDest: 'service-worker.js',
       }), 
     ],
 
