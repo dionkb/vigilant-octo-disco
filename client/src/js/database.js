@@ -12,17 +12,6 @@ const initdb = async () =>
     },
   });
 
-// Logic for a method that accepts some content and adds it to the database
-export const putDb = async (content) => {
-  console.log('POST to the database'); // Used to verify connection
-  const jateDb = await openDB('jate', 1); // Opening link to 'jate' db version '1'
-  const tx = jateDb.transaction('jate', 'readwrite'); // Config type of 'transaction' allowed
-  const store = tx.objectStore('jate'); // Creating an objectStore which can be added to db
-  const request = store.add({ textBody: content }); // Adds objectStore to db as key-value pair
-  const result = await request; // Checks for success to be returned as log to user
-  console.log('Success! Saved to database', result);
-}
-
 // Logic for a method that gets all the content from the database
 export const getDb = async () => {
   console.log('GET all from the database'); // Notes for logic similar to notes for postDb method
@@ -33,6 +22,17 @@ export const getDb = async () => {
   const result = await request;
   console.log('result.value', result);
   return result;
+}
+
+// Logic for a method that accepts some content and adds it to the database
+export const putDb = async (content, id) => {
+  console.log('PUT to the database'); // Used to verify connection
+  const jateDb = await openDB('jate', 1); // Opening link to 'jate' db version '1'
+  const tx = jateDb.transaction('jate', 'readwrite'); // Config type of 'transaction' allowed
+  const store = tx.objectStore('jate'); // Creating an objectStore which can be added to db
+  const request = store.put({ content: content, id: id }); // Adds objectStore to db as key-value pair
+  const result = await request; // Checks for success to be returned as log to user
+  console.log('Success! Saved to database', result);
 }
 
 initdb();
