@@ -1,4 +1,4 @@
-# Week 19 - PWA Final Challenge
+# Week 19 - PWA Final Challenge (WORK IN PROGRESS!)
 
   A text editor that utilized PWA technology to work on or offline, and can be downloaded as well.  
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
