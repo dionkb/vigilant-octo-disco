@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
@@ -17,7 +18,8 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'JATE'
+        title: 'JATE',
+        favicon: "./favicon.ico"
       }),
       new WebpackPwaManifest({
         "short_name": "Manifest",
@@ -27,7 +29,6 @@ module.exports = () => {
             "src": path.resolve("./src/images/logo.png"),
             "type": "image/png",
             "sizes": [96, 128, 192, 256, 384, 512],
-            "purpose": "any maskable"
           }
         ],
         "orientation": "portrait",
@@ -35,6 +36,7 @@ module.exports = () => {
         "start_url": "./",
         "description": "A text editor that works offline and can be downloaded",
       }),
+      new MiniCssExtractPlugin(),
       new InjectManifest({
         swSrc: './src-sw.js',
         swDest: 'service-worker.js',
@@ -43,22 +45,25 @@ module.exports = () => {
 
     module: {
       rules: [
-        {
-          test: /\.css$/i,
-          use: ['style-loader', 'css-loader'],
-        },
-        {
-          test: /\.m?js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-              plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime'],
-            },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
           },
         },
-      ],
+      },
+    ],
     },
   };
 };
